@@ -1,0 +1,17 @@
+#.gitignore file for Arbisoft Training Project
+
+#ignore pycahe and vscode files
+*/__pycache__/
+__pycache__/
+*/.vscode/
+Weatherman/files/
+
+
+# Ignore all zip and txt files
+*.zip
+*.txt
+
+
+#Ignore Lock files
+Pipfile.lock
+Pipfile
