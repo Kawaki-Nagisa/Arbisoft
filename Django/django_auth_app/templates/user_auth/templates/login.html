@@ -1,0 +1,11 @@
+{% extends 'user_auth/templates/base.html' %}
+
+{% block content %}
+  <h2>{{ name }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Don't have an account? <a href="{% url 'user_auth:signup' %}">Sign Up</a></p>
+    <button type="submit">Log In</button>
+  </form>
+{% endblock %}
