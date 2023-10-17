@@ -1,0 +1,12 @@
+{% extends 'user_auth/templates/base.html' %}
+
+{% block content %}
+  <h2>{{ name }}</h2>
+  <div id='user-form'>
+    <form method="post">
+      {% csrf_token %}
+        {{ form.as_p }}
+        <button type='submit'>Save Changes</button>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+#gitignore for user auth project
+
+#ignore the cahce files
+*/__pycache__/
+
+Pipfile
+Pipfile.lock
+
+migrations/
+
+.vscode/
