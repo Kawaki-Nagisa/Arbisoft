@@ -1,0 +1,466 @@
+openapi: 3.0.3
+info:
+  title: DRF User
+  version: 0.0.0
+paths:
+  /auth/token/:
+    post:
+      operationId: auth_token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MyTokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MyTokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MyTokenObtainPair'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MyTokenObtainPair'
+          description: ''
+  /auth/token/refresh/:
+    post:
+      operationId: auth_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /profile/:
+    get:
+      operationId: profile_list
+      tags:
+      - profile
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Custom'
+          description: ''
+  /profile/{id}/:
+    get:
+      operationId: profile_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - profile
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Custom'
+          description: ''
+  /profile/{id}/edit_profile/:
+    put:
+      operationId: profile_edit_profile_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Custom'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Custom'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Custom'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Custom'
+          description: ''
+  /schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /user/:
+    get:
+      operationId: user_list
+      tags:
+      - user
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Custom'
+          description: ''
+    post:
+      operationId: user_create
+      tags:
+      - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Custom'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Custom'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Custom'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Custom'
+          description: ''
+  /user/login/:
+    get:
+      operationId: user_login_retrieve
+      tags:
+      - user
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: user_login_create
+      tags:
+      - user
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /user/register/:
+    get:
+      operationId: user_register_retrieve
+      tags:
+      - user
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Registration'
+          description: ''
+    post:
+      operationId: user_register_create
+      tags:
+      - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Registration'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Registration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Registration'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Registration'
+          description: ''
+components:
+  schemas:
+    Custom:
+      type: object
+      properties:
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        password:
+          type: string
+          maxLength: 128
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+      required:
+      - email
+      - password
+    MyTokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - password
+    Registration:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+        re_password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - id
+      - password
+      - re_password
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
