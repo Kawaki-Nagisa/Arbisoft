@@ -56,7 +56,7 @@ class WordGenerator:
         Returns:
             float: The calculated accuracy score.
         """
-        letter_score = 100 / len(self.word)
+        letter_score = 100 / len(self.word_data)
 
         score = -letter_score * penalty_count
 
@@ -91,7 +91,7 @@ class WordGenerator:
         return max(final_time_score, 0)
 
     def display_test_results(self):
-        display_value("Word", self.word)
+        display_value("Word", self.word_data)
         display_value("No of Letters", len(self.word_data[WORD]))
         display_value("User typed", "".join(self.user_input))
         display_value("Time taken", self.time_taken)
@@ -105,7 +105,7 @@ class WordGenerator:
         """
         Start the typing test, record user input, calculate scores, and display results.
         """
-        display_value("Word", self.word)
+        display_value("Word", self.word_data)
         print("Test Started. Press '", KEY_ENTER, "' to submit.")
         start_time = time.time()
         key_record = record_keystrokes()
