@@ -27,9 +27,8 @@ class WeatherCalculations:
         Returns:
             tuple: A tuple containing the highest temperature and its corresponding date in the format "YYYY-MM-DD".
         """
-
-        highest_temp = max(self.weather_data, key=lambda x: x.temp_high 
-                           if x.temp_high is not None else float('-inf'))
+    
+        highest_temp = max(self.weather_data, key=lambda x: x.temp_high if x.temp_high is not None else float('-inf'))
         return highest_temp.temp_high, highest_temp.date
 
     def get_lowest_temperature_record(self):
@@ -40,8 +39,7 @@ class WeatherCalculations:
             tuple: A tuple containing the lowest temperature and its corresponding date in the format "YYYY-MM-DD".
         """
 
-        lowest_temp = min(self.weather_data, key=lambda x: x.temp_low
-                          if x.temp_low is not None else float('inf'))
+        lowest_temp = min(self.weather_data, key=lambda x: x.temp_low if x.temp_low is not None else float('inf'))
         return lowest_temp.temp_low, lowest_temp.date
 
     def get_most_humid_day_record(self):
@@ -52,8 +50,7 @@ class WeatherCalculations:
             tuple: A tuple containing the highest humidity and its corresponding date in the format "YYYY-MM-DD".
         """
 
-        most_humid = max(self.weather_data, key=lambda x: x.humidity
-                         if x.humidity is not None else float('-inf'))
+        most_humid = max(self.weather_data, key=lambda x: x.humidity if x.humidity is not None else float('-inf'))
         return most_humid.humidity, most_humid.date
     
     def get_average_highest_temperature(self):
@@ -64,8 +61,7 @@ class WeatherCalculations:
             float: The average highest temperature.
         """
 
-        avg_highest_temp = sum([reading.temp_high for reading in self.weather_data 
-                                if reading.temp_high is not None]) / len(self.weather_data)
+        avg_highest_temp = sum([reading.temp_high for reading in self.weather_data if reading.temp_high is not None]) / len(self.weather_data)
         return avg_highest_temp
     
     def get_average_lowest_temperature(self):
@@ -76,8 +72,7 @@ class WeatherCalculations:
             float: The average lowest temperature.
         """
 
-        avg_lowest_temp = sum([reading.temp_low for reading in self.weather_data 
-                               if reading.temp_low is not None]) / len(self.weather_data)
+        avg_lowest_temp = sum([reading.temp_low for reading in self.weather_data if reading.temp_low is not None]) / len(self.weather_data)
         return avg_lowest_temp
     
     def get_average_mean_humidity(self):
@@ -88,7 +83,6 @@ class WeatherCalculations:
             float: The average mean humidity.
         """
 
-        avg_humidity = sum([reading.humidity for reading in self.weather_data 
-                            if reading.humidity is not None]) / len(self.weather_data)
+        avg_humidity = sum([reading.humidity for reading in self.weather_data if reading.humidity is not None]) / len(self.weather_data)
         return avg_humidity
     
